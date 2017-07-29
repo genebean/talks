@@ -23,7 +23,6 @@ description: "Talks I've given and files associated with them."
 
 # List of links in the navigation bar
 navbar-links:
-  About Me: "aboutme"
   My Blog: "https://beanbag.technicalissues.us"
   Resources:
     - Beautiful Jekyll: "http://deanattali.com/beautiful-jekyll/"
