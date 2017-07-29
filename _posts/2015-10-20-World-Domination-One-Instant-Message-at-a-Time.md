@@ -5,7 +5,7 @@ subtitle: Presented at the USG Annual Computing Conference 2015
 tags: [usg-rock-eagle]
 ---
 
-This presentation talks my attempts at taking over the world with a Hubot
+This presentation talks my attempts at taking over the world with a Hubot.
 
 ### Note:
 
