@@ -1,8 +1,11 @@
-## Windows Configuration Management with Puppet
+---
+layout: post
+title: Windows Configuration Management with Puppet
+subtitle: Presented at ConfigMgmtCamp PDX 2017
+tags: [windows, puppet]
+---
 
-### Abstract:
-
-Do you ever find that GPO's are not enough to get things setup the way you would
+_Abstract:_ Do you ever find that GPO's are not enough to get things setup the way you would
 like? Tried DSC but found that it too doesn't quite do what you need? Tired of
 using scripts to fill this gap? Maybe you've heard all the buzz over the last
 several years around configuration management on Linux and wished some of that
@@ -23,3 +26,15 @@ Here are some of the topics we will touch on in this talk:
 
 As a bonus, I'll also talk about how you can take advantage of some open source
 work to build Windows VM templates.
+
+## Presentation
+
+* [Code sample]({{ site.url }}/2017/08/03/code_sample)
+* [PDF]({{ site.url }}/2017/08/03/Windows-Configuration-Management-with-Puppet.pdf)
+* [PowerPoint]({{ site.url }}/2017/08/03/Windows-Configuration-Management-with-Puppet.pptx)
+
+## Resources
+
+* [CodeSample-win_patching.mp4]({{ site.url }}/2017/08/03/CodeSample-win_patching.mp4)
+* [dsc-vs-puppet.png]({{ site.url }}/2017/08/03/dsc-vs-puppet.png)
+* [package-dsc-vs-puppet.png]({{ site.url }}/2017/08/03/package-dsc-vs-puppet.png)

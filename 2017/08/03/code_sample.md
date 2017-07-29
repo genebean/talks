@@ -1,7 +1,10 @@
-Below is a copy of win_patching.pp which demonstrates a method
+---
+layout: page
+---
+
+Below is a copy of `win_patching.pp` which demonstrates a method
 for patching Windows systems within a change window. This code was used as demo
-during my presentation. The actual source file and other files used as part of
-the presentation can be found in the [src/](src/) sub-directory.
+during my presentation. You can download the raw file [here]({{ site.url }}/2017/08/03/win_patching.pp)
 
 ```puppet
 class { 'chocolatey':

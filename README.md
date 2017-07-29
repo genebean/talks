@@ -1,11 +1,4 @@
-## 2017
+## Gene's Talks
 
-### ConfgMgmtCamp PDX - 3 Aug. 2017
+View this repo's content at https://genebean.github.io/talks
 
-My presentation entitled "Windows Configuration Management with Puppet" can be
-found under [2017/08/03/](2017/08/03/).
-
-* * *
-
-As a note to myself for now, the markdown hits from my theme are saved at
-  [style-guide.md](style-guide)
