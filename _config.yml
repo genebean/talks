@@ -92,9 +92,9 @@ share-links-active:
 # Fill in all fields to link to your Piwik installatoin
 piwik:
   enable: true
-  known_domains:
-    - "*.genebean.github.io/talks"
-    - "*.talks.geneliverman.com"
+  # known_domains:
+  #   - "*.genebean.github.io/talks"
+  #   - "*.talks.geneliverman.com"
   piwik_domain: "stats.technicalissues.us/"
   siteid: "4"
 
