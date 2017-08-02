@@ -7,10 +7,12 @@ for patching Windows systems within a change window. This code was used as demo
 during my presentation. You can download the raw file [here]({{ site.url }}/2017/08/03/win_patching.pp)
 
 ```puppet
-$maintenance_day  = lookup('windows::maintenance_day', { 'default_value' => 'Saturday'})
+$maintenance_day        = lookup('windows::maintenance::day', { 'default_value' => 'Saturday'})
+$maintenance_start_time = lookup('windows::maintenance::start_time', { 'default_value' => '1:30'})
+$maintenance_end_time   = lookup('windows::maintenance::end_time', { 'default_value' => '4:30'})
 
 schedule { 'Maintenance Window':
-  range   => '1:30 - 4:30',
+  range   => "${maintenance_start_time} - ${maintenance_end_time}"
   weekday => $maintenance_day,
 }
 
