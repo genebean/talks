@@ -12,7 +12,7 @@ $maintenance_start_time = lookup('windows::maintenance::start_time', { 'default_
 $maintenance_end_time   = lookup('windows::maintenance::end_time', { 'default_value' => '4:30'})
 
 schedule { 'Maintenance Window':
-  range   => "${maintenance_start_time} - ${maintenance_end_time}"
+  range   => "${maintenance_start_time} - ${maintenance_end_time}",
   weekday => $maintenance_day,
 }
 
