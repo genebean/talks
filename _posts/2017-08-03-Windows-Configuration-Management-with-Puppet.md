@@ -27,6 +27,12 @@ Here are some of the topics we will touch on in this talk:
 As a bonus, I'll also talk about how you can take advantage of some open source
 work to build Windows VM templates.
 
+## Bug Notice
+
+While running the code below I found what I believe is a bug. That bug has been
+reported in ticket [MODULES-5395](https://tickets.puppetlabs.com/browse/MODULES-5395).
+Please take note of that before using the sample in production.
+
 ## Presentation
 
 * [Code sample]({{ site.url }}/2017/08/03/code_sample)
