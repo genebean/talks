@@ -30,6 +30,7 @@ work to build Windows VM templates.
 ## Presentation
 
 * [Code sample]({{ site.url }}/2017/08/03/code_sample)
+* [Footprints registry example]({{ site.url }}/2017/08/03/footprints_registry)
 * [PDF]({{ site.url }}/2017/08/03/Windows-Configuration-Management-with-Puppet.pdf)
 * [PowerPoint]({{ site.url }}/2017/08/03/Windows-Configuration-Management-with-Puppet.pptx)
 
