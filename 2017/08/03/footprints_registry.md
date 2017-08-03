@@ -7,91 +7,46 @@ the restistry keys that are needed by many applications. You can download the
 raw file [here]({{ site.url }}/2017/08/03/footprints_registry.pp)
 
 ```puppet
-$maintenance_day        = lookup('windows::maintenance::day', { 'default_value' => 'Saturday'})
-$maintenance_start_time = lookup('windows::maintenance::start_time', { 'default_value' => '1:30'})
-$maintenance_end_time   = lookup('windows::maintenance::end_time', { 'default_value' => '4:30'})
-
-schedule { 'Maintenance Window':
-  range   => "${maintenance_start_time} - ${maintenance_end_time}",
-  weekday => $maintenance_day,
+registry_value { 'HKLM\SYSTEM\CurrentControlSet\Control\Terminal Server\DeleteTempDirsOnExit':
+  ensure => present,
+  type   => 'dword',
+  data   => '0',
 }
 
-# This just defines a reboot resource, it doesn't reboot the system
-reboot { 'before_next_resource':
-  when     => pending,
-  schedule => 'Maintenance Window',
+registry_value { 'HKLM\SYSTEM\CurrentControlSet\Control\Terminal Server\PerSessionTempDir':
+  ensure => present,
+  type   => 'dword',
+  data   => '0',
 }
 
-# Do not try and manage these same settings in a GPO as the two will conflict
-# Adjust these to match your environment.
-class { '::wsus_client' :
-  no_auto_update                      => true,
-  auto_update_option                  => 'NotifyOnly',
-  detection_frequency_hours           => 1,
-  no_auto_reboot_with_logged_on_users => false,
-  server_url                          => 'http://wsus.example.com',
-  # target_group                        => 'ServerUpdates',
-  purge_values                        => true,
-  before                              => Exec['Install Windows Updates'],
+registry_value { 'HKLM\SOFTWARE\Wow6432Node\Apache Software Foundation\Procrun 2.0\Tomcat7\Parameters\Java\JvmMs':
+  ensure  => present,
+  type    => 'dword',
+  data    => '12288',
+  require => Package['jre8'],
+  notify  => Service['tomcat7'],
+}
+registry_value { 'HKLM\SOFTWARE\Wow6432Node\Apache Software Foundation\Procrun 2.0\Tomcat7\Parameters\Java\JvmMx':
+  ensure  => present,
+  type    => 'dword',
+  data    => '14336',
+  require => Package['jre8'],
+  notify  => Service['tomcat7'],
 }
 
-# Bootstraps chocolatey
-class { '::chocolatey':
-  log_output => true,
+registry_value { 'HKLM\SOFTWARE\Wow6432Node\Apache Software Foundation\Procrun 2.0\Tomcat7\Parameters\Java\Options':
+  ensure  => present,
+  type    => 'array',
+  data    => ['-Dcatalina.home=C:\Program Files\Apache Software Foundation\tomcat\apache-tomcat-7.0.69',
+    '-Dcatalina.base=C:\Program Files\Apache Software Foundation\tomcat\apache-tomcat-7.0.69',
+    '-Djava.endorsed.dirs=C:\Program Files\Apache Software Foundation\tomcat\apache-tomcat-7.0.69\endorsed',
+    '-Djava.io.tmpdir=C:\Program Files\Apache Software Foundation\tomcat\apache-tomcat-7.0.69\temp',
+    '-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager',
+    '-Djava.util.logging.config.file=C:\Program Files\Apache Software Foundation\tomcat\apache-tomcat-7.0.69\conf\logging.properties',
+    '-Dfile.encoding=UTF-8',
+  ],
+  require => Package['jre8'],
+  notify  => Service['tomcat7'],
 }
 
-# Makes packages installed via chocolatey show up in Programs and Features
-chocolateyfeature { 'autouninstaller':
-  ensure   => enabled,
-}
-
-# Keep chocolatey updated
-package { 'chocolatey':
-  ensure   => latest,
-  provider => 'chocolatey',
-}
-
-# Install the latest version of PowerShell
-# This is needed for the execs below to work correctly
-package { 'powershell':
-  ensure   => latest,
-  provider => 'chocolatey',
-}
-
-exec { 'Install NuGet package provider':
-  command   => '$(Install-PackageProvider -Name NuGet -Force)',
-  onlyif    => '$(if((Get-PackageProvider -Name NuGet -ListAvailable -ErrorAction SilentlyContinue) -eq $null) { exit 0 } else { exit 1 })',
-  provider  => 'powershell',
-  logoutput => true,
-  require   => Package['powershell'],
-}
-
-exec { 'Install PSWindowsUpdate module':
-  command   => '$(Install-Module -Name PSWindowsUpdate -Scope AllUsers -Force)',
-  onlyif    => '$(if((Get-Module PSWindowsUpdate -list) -eq $null) { exit 0 } else { exit 1 })',
-  provider  => 'powershell',
-  logoutput => true,
-  require   => Exec['Install NuGet package provider'],
-}
-
-# lint:ignore:140chars
-exec { 'Download Windows Updates':
-  command   => '$(Get-WUInstall -DownloadOnly -IgnoreUserInput -ShowSearchCriteria -AcceptAll -Verbose)',
-  onlyif    => '$(if (@(Get-WUInstall -IgnoreUserInput -ListOnly).Count -gt 0) { exit 0 } else { exit 1 })',
-  provider  => 'powershell',
-  logoutput => true,
-  timeout   => '1200', # Run for up to 20 minutes
-  require   => Exec['Install PSWindowsUpdate module'],
-}
-# lint:endignore
-
-exec { 'Install Windows Updates':
-  command   => '$(Get-WUInstall -IgnoreUserInput -ShowSearchCriteria -AcceptAll -IgnoreReboot -Verbose)',
-  onlyif    => '$(if (@(Get-WUInstall -IgnoreUserInput -ListOnly).Count -gt 0) { exit 0 } else { exit 1 })',
-  provider  => 'powershell',
-  logoutput => true,
-  timeout   => '1200', # Run for up to 20 minutes
-  require   => Exec['Download Windows Updates'],
-  schedule  => 'Maintenance Window',
-}
 ```
