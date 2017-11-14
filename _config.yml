@@ -37,6 +37,18 @@ avatar: "/img/avatar-icon.png"
 # then specify the following parameter
 # title-img: /path/to/image
 
+# --- Background colour/image options --- #
+
+# By default, the navigation bar and footer have a light gray background, and the main page
+# has a white background. You can specify a different background colour or a background image
+# for the navigation bar, the main page, and the footer.
+# navbar-col: "orange"
+# navbar-img: "/img/bgimage.png"
+# footer-col: "blue"
+# footer-img: "/img/bgimage.png"
+# page-col: "#FF0000"
+# page-img: "/img/bgimage.png"
+
 # --- Footer options --- #
 
 # Change all these values or delete the ones you don't want.
@@ -57,6 +69,9 @@ author:
   #youtube: yourlink   # eg. user/daattali or channel/daattali
   #spotify: yourname   # eg. daattali
   #telephone: yourphone   # eg. +14159998888
+  #steam: yourname     # eg. daattali
+  #twitch: yourname    # eg. daattali
+  #yelp: yourname      # eg. daattali
 
 # Select which links to show in the footer
 footer-links-active:
@@ -75,6 +90,9 @@ footer-links-active:
   youtube: false
   spotify: false
   telephone: false
+  steam: false
+  twitch: false
+  yelp: false
 
 # Select which share links to show in posts
 share-links-active:
@@ -160,6 +178,10 @@ exclude:
   - LICENSE
   - README.md
   - Vagrantfile
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
 
 # prose.io config
 prose:
@@ -213,7 +235,7 @@ prose:
           label: "Publish"
           help: "Check to publish post, uncheck to hide."
 
-gems:
+plugins:
   - jekyll-paginate
 
 # Beautiful Jekyll / Dean Attali
