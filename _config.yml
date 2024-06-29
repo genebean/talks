@@ -108,15 +108,6 @@ share-links-active:
 
 # --- Misc --- #
 
-# Fill in all fields to link to your Piwik installatoin
-piwik:
-  enable: true
-  known_domains:
-    - "*.genebean.github.io/talks"
-    - "*.talks.geneliverman.com"
-  piwik_domain: "stats.technicalissues.us/"
-  siteid: "4"
-
 # Fill in your Disqus shortname (NOT the userid) if you want to support Disqus comments
 #disqus: ""
 
